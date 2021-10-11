@@ -5,7 +5,7 @@ import ReactDom from 'react-dom';
 const App = () => {
 	const ref = useRef<any>();
 	const [ input, setInput ] = useState('');
-	const [ code, setCode ] = useState('');
+	const [ code, setCode ] = useState('de');
 
 	const startService = async () => {
 		ref.current = await esbuild.startService({
