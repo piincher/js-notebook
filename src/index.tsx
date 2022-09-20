@@ -1,17 +1,17 @@
-import * as esbuild from 'esbuild-wasm';
-import { useState, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
-import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
+import * as esbuild from "esbuild-wasm";
+import { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
 
 const App = () => {
   const ref = useRef<any>();
-  const [input, setInput] = useState('');
-  const [code, setCode] = useState('');
+  const [input, setInput] = useState("");
+  const [code, setCode] = useState("");
 
   const startService = async () => {
     ref.current = await esbuild.startService({
       worker: true,
-      wasmURL: '/esbuild.wasm',
+      wasmURL: "/esbuild.wasm",
     });
   };
   useEffect(() => {
@@ -24,13 +24,13 @@ const App = () => {
     }
 
     const result = await ref.current.build({
-      entryPoints: ['index.js'],
+      entryPoints: ["index.js"],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin()],
+      plugins: [unpkgPathPlugin(input)],
       define: {
-        'process.env.NODE_ENV': '"production"',
-        global: 'window',
+        "process.env.NODE_ENV": '"production"',
+        global: "window",
       },
     });
 
@@ -53,4 +53,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(<App />, document.querySelector("#root"));
